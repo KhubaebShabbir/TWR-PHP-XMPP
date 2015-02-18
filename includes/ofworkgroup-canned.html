@@ -1,0 +1,14 @@
+<script type="text/javascript">
+	var $getID = $('#results').attr('class');
+	var rgCanned_get = $iq({type:"get", to:"pubsub."+ wRep.host})
+    	.c('pubsub', {xmlns:"http://jabber.org/protocol/pubsub"})
+        	.c('items', {'node':$getID+'-repGroup'})
+				.c('item', {'id':'rgCanned'}).tree();
+	wRep.connection.sendIQ(rgCanned_get, wRep.on_pubsub);
+	$('h4').prepend($getID);
+</script>
+<h4 class="blue"> Canned Messages</h4>
+<div id="repGroupCanned-view">
+</div>
+<div id="repGroupCanned-xml">
+</div>

@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	var $getID = $('#results').attr('class');
+	var rgScript_get = $iq({type:"get", to:"pubsub."+ wRep.host})
+    	.c('pubsub', {xmlns:"http://jabber.org/protocol/pubsub"})
+        	.c('items', {'node':'webVisitors'})
+				.c('item', {'id':$getID +'-script'}).tree();
+	wRep.connection.sendIQ(rgScript_get, wRep.on_pubsub);
+	
+	var workgroupFiled = document.forms['domain-script-form']['workgroup'];
+	$(workgroupFiled).val($getID);	
+	$('h4').prepend($getID);
+</script>
+
+<h4 class="green"> Script Settings</h4>
+<form id="domain-script-form" method="post" action="client-chat/domains/savescript.php">
+  <input type="hidden" name="workgroup" value="" />
+  <label>Auto Intiate</label>
+  Yes
+  <input type="radio" name="intiate" value="true" checked="checked" />
+  No
+  <input type="radio" name="intiate" value="false" />
+  <br />
+  <label>Delay Time (Secs)</label>
+  <input type="text" name="dealyTime" value="0" />
+  <br />
+  <label>Draggable</label>
+  Yes
+  <input type="radio" name="draggable" value="true" checked="checked" />
+  No
+  <input type="radio" name="draggable" value="false" />
+  <br />
+  <label>&nbsp;</label>
+  <input type="submit" name="submit2" value="Save Script Settngs" />
+  <br />
+  <label>&nbsp;</label>
+  <span class="error"></span>
+</form>
+<h5>Current Settings</h5>
+<div id="repGroupScript-view"> </div>

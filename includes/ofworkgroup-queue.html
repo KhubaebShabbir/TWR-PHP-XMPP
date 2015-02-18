@@ -1,0 +1,24 @@
+<script type="text/javascript">
+	var $getID = $('#results').attr('class');
+	var repGroupallReps_get = $iq({type:'get', to:'pubsub.'+ wRep.host, id:'repGroup'+ $getID+'Queues'}).c('pubsub', {xmlns:'http://jabber.org/protocol/pubsub'}).c('items', {node:'visitorQueues'}).c('item', {id: $getID +'-active'}).tree();
+	wRep.connection.sendIQ(repGroupallReps_get, wRep.on_pubsub);
+	$('h4').prepend($getID);
+</script>
+
+<form id="set-queues">
+  <h4 class="purple"> Active Queues</h4>
+  <input type="checkbox" name="activeQueues" value="primary" />
+  <label>Primary</label>
+  <input type="checkbox" name="activeQueues" value="secondary" />
+  <label>Secondary</label>
+  <input type="checkbox" name="activeQueues" value="backup" />
+  <label>Backup</label>
+  <br />
+  <input type="submit" name="submit" value="Set Queue" />
+  <br />
+  <label>&nbsp;</label>
+  <span class="error"></span>
+</form>
+<h5>Assigned Queues</h5>
+<div id="repGroupQueue-view"> </div>
+<div id="activeQueues_xml"> </div>

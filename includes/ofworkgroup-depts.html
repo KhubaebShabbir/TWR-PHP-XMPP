@@ -1,0 +1,14 @@
+<script type="text/javascript">
+	var $getID = $('#results').attr('class');
+	var rgDepts_get = $iq({type:"get", to:"pubsub."+ wRep.host})
+    	.c('pubsub', {xmlns:"http://jabber.org/protocol/pubsub"})
+        	.c('items', {'node':$getID+'-repGroup'})
+				.c('item', {'id':'rgDepts'}).tree();
+	wRep.connection.sendIQ(rgDepts_get, wRep.on_pubsub);
+	$('h4').prepend($getID);
+</script>
+<h4 class="blue"> Departments</h4>
+<div id="repGroupDepts-view">
+</div>
+<div id="repGroupDepts-xml">
+</div>

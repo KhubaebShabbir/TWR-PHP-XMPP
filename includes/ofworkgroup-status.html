@@ -1,0 +1,32 @@
+<script type="text/javascript">
+	var $getID = $('#results').attr('class');
+	var repGroupstatus_get = $iq({type:'get', to:'pubsub.'+ wRep.host, id:'repGroup'+ $getID +'Status'}).c('pubsub', {xmlns:'http://jabber.org/protocol/pubsub'}).c('items', {node:'webVisitors'}).c('item', {id:$getID +'-status'}).tree();
+	wRep.connection.sendIQ(repGroupstatus_get, wRep.on_pubsub);
+	
+	var dateFiled = document.forms['domain-status']['date'];
+	$(dateFiled).val(wRep.addDate);
+	$('h4').prepend($getID);
+</script>
+
+<h4 class="blue"> Service Status</h4>
+<form id="domain-status">
+  <input type="hidden" name="date" value="" />
+  <label>Service Status</label>
+  Offline
+  <input type="radio" name="status" value="offline" checked="checked" />
+  Online
+  <input type="radio" name="status" value="online" />
+  In Service
+  <input type="radio" name="status" value="inservice" />
+  <br />
+  <label>Comments</label>
+  <textarea name="descp"></textarea>
+  <br />
+  <label>&nbsp;</label>
+  <input type="submit" name="submit" value="Submit" />
+  <br />
+  <label>&nbsp;</label>
+  <span class="error"></span>
+</form>
+<h5>Current Status</h5>
+<div id="repGroupStatus-view"></div>

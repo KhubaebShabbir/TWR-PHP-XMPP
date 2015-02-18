@@ -1,0 +1,45 @@
+<script type="text/javascript">
+	$('select.select-mulitple').empty().load('includes/ofuser-role.php', assigendJid);
+	
+	$.get('includes/ofgroup-list.php', function(data){
+		$( "select.select-group" ).html(data);
+	});	
+	var $getID = $('#results').attr('class');
+	var repGroupallReps_get = $iq({type:'get', to:'pubsub.'+ wRep.host, id:'readallRepsxml'}).c('pubsub', {xmlns:'http://jabber.org/protocol/pubsub'}).c('items', {node:'webVisitors'}).c('item', {id: $getID +'-allReps'}).tree();
+	wRep.connection.sendIQ(repGroupallReps_get, wRep.on_pubsub);
+	$('h4').prepend($getID);
+</script>
+
+<h4 class="green"> Domain Agents</h4>
+<form id="add-repGroupUser">
+  <label>Select Queue</label>
+  Primary
+  <input type="radio" name="queue" value="primary" checked="checked" />
+  Secondary
+  <input type="radio" name="queue" value="secondary" />
+  Backup
+  <input type="radio" name="queue" value="backup" />
+  <label>Assign Agents</label>
+  <select class="select-mulitple" name="selectname[]" multiple="multiple">
+  </select>
+  <br />
+  <label>&nbsp;</label>
+  <input type="submit" value="Add" name="submit" />
+  <br />
+  <label>&nbsp;</label>
+  <span class="error"></span>
+</form>
+<form>
+  <label>Assign Groups</label>
+  <select class="select-group" name="selectgroup[]" multiple="multiple">
+  </select>
+  <br />
+  <label>&nbsp;</label>
+  <!--<input type="submit" value="Add" name="submit" />--->
+  <br />
+  <label>&nbsp;</label>
+  <span class="error"></span>
+</form>
+<h5>Assigned Agents</h5>
+<div id="repGroupUsers-view">
+</div>
